@@ -1,0 +1,18 @@
+/* Malio's original Stisla shell around the current SSPanel template contracts. */
+:root { --tblr-primary:#6777ef; --tblr-primary-rgb:103,119,239; }
+body { background:#f4f6f9; font-family:"Nunito","Segoe UI",Arial,sans-serif; }
+.everflame-user.page { display:block; }
+.everflame-user > .page-wrapper { margin-left:250px; padding:100px 30px 0; display:block; }
+.main-navbar { left:250px; right:0; height:70px; position:absolute; z-index:880; background:transparent; }
+.main-sidebar { width:250px; position:fixed; height:100vh; background:#fff; z-index:900; overflow:auto; }
+.navbar-bg { height:115px; background:#6777ef; }
+.main-sidebar .sidebar-brand { line-height:70px; text-align:center; font-size:20px; font-weight:700; }
+.main-sidebar .sidebar-menu { padding:0; list-style:none; }
+.main-sidebar .sidebar-menu li a { display:flex; align-items:center; padding:15px 25px; color:#78828a; }
+.main-sidebar .sidebar-menu li a:hover,.main-sidebar .sidebar-menu li a.active { color:#6777ef; background:#f0f3ff; }
+.main-sidebar .sidebar-menu .menu-header { padding:12px 25px; color:#a1a8ae; font-size:10px; letter-spacing:1.3px; }
+.card { border:0; box-shadow:0 4px 8px rgba(0,0,0,.03); border-radius:3px; }
+.page-center .card { border-top:2px solid #6777ef; }
+.page-center .navbar-brand img { content:url('/theme/malio/assets/img/stisla-fill.svg'); }
+.btn-primary { background:#6777ef; border-color:#6777ef; }
+@media(max-width:1024px) { .main-sidebar { left:-250px; } .main-navbar { left:0; } .everflame-user > .page-wrapper { margin-left:0; padding:100px 12px 0; } body.malio-sidebar-open .main-sidebar { left:0; } body.malio-sidebar-open .main-navbar { left:250px; } }
