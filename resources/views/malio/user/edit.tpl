@@ -32,7 +32,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a href="#login_security" class="nav-link" data-bs-toggle="tab" aria-selected="true"
+                                <a href="#login_security" class="nav-link" data-bs-toggle="tab" aria-selected="false"
                                    role="tab">
                                     <i class="ti ti-shield-lock icon"></i>&nbsp;
                                     登录
@@ -64,7 +64,7 @@
                                                     <p>当前邮箱：<code id="email">{$user->email}</code></p>
                                                     <div class="mb-3">
                                                         <input id="new-email" type="email" class="form-control"
-                                                               placeholder="新邮箱"
+                                                               placeholder="请输入新邮箱" aria-label="新邮箱"
                                                                {if ! $config['enable_change_email']}disabled=""{/if}>
                                                     </div>
                                                     {if $public_setting['reg_email_verify'] && $config['enable_change_email']}
@@ -79,7 +79,7 @@
                                                         {if $public_setting['reg_email_verify'] && $config['enable_change_email']}
                                                         <button class="btn btn-link"
                                                                 hx-post="/user/edit/send" hx-swap="none"
-                                                                hx-vals='js:{ email: document.getElementById("newemail").value }'>
+                                                                hx-vals='js:{ email: document.getElementById("new-email").value }'>
                                                             获取验证码
                                                         </button>
                                                         <button class="btn btn-primary ms-auto"
@@ -108,11 +108,11 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <h3 class="card-title">用戶名</h3>
-                                                    <p>当前用戶名：<code id="username">{$user->user_name}</code></p>
+                                                    <h3 class="card-title">用户名</h3>
+                                                    <p>当前用户名：<code id="username">{$user->user_name}</code></p>
                                                     <div class="mb-3">
                                                         <input id="new-username" type="text" class="form-control"
-                                                               placeholder="新用戶名" autocomplete="off">
+                                                               placeholder="请输入新用户名" aria-label="新用户名" autocomplete="off">
                                                     </div>
                                                 </div>
                                                 <div class="card-footer">
@@ -131,7 +131,7 @@
                                                 <div class="card-body">
                                                     <h3 class="card-title">IM 账号绑定</h3>
                                                     <div class="mb-3">
-                                                        <select id="imtype" class="form-select"
+                                                        <select id="imtype" aria-label="IM 服务" class="form-select"
                                                                 {if $user->im_type !== 0 && $user->im_value !== ''}disabled=""{/if}>
                                                             <option value="0" {if $user->im_type === 0}selected{/if}>
                                                                 未绑定
@@ -149,7 +149,7 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <input id="imvalue" type="text" class="form-control"
-                                                               value="{$user->im_value}" disabled>
+                                                               value="{$user->im_value}" placeholder="选择服务后绑定账号" aria-label="IM 账号" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="card-footer">

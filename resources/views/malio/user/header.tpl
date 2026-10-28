@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <meta name="referrer" content="never">
     <title>{$config['appName']}</title>
@@ -25,10 +25,10 @@
             font-size: 36px;
         }
     </style>
-<link rel="stylesheet" href="/theme/malio/css/style-purple.css">
-<link rel="stylesheet" href="/theme/malio/assets/css/components.css">
+
+
 <link rel="stylesheet" href="/theme/malio/css/malio.css">
-<link rel="stylesheet" href="/theme/malio/css/everflame.css">
+<link rel="stylesheet" href="/theme/malio/css/everflame.css?v=20261028">
 </head>
 
 {if $user->is_dark_mode}

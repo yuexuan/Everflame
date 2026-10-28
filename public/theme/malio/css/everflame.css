@@ -1,18 +1,55 @@
-/* Malio's original Stisla shell around the current SSPanel template contracts. */
-:root { --tblr-primary:#6777ef; --tblr-primary-rgb:103,119,239; }
-body { background:#f4f6f9; font-family:"Nunito","Segoe UI",Arial,sans-serif; }
-.everflame-user.page { display:block; }
-.everflame-user > .page-wrapper { margin-left:250px; padding:100px 30px 0; display:block; }
-.main-navbar { left:250px; right:0; height:70px; position:absolute; z-index:880; background:transparent; }
-.main-sidebar { width:250px; position:fixed; height:100vh; background:#fff; z-index:900; overflow:auto; }
-.navbar-bg { height:115px; background:#6777ef; }
-.main-sidebar .sidebar-brand { line-height:70px; text-align:center; font-size:20px; font-weight:700; }
-.main-sidebar .sidebar-menu { padding:0; list-style:none; }
-.main-sidebar .sidebar-menu li a { display:flex; align-items:center; padding:15px 25px; color:#78828a; }
-.main-sidebar .sidebar-menu li a:hover,.main-sidebar .sidebar-menu li a.active { color:#6777ef; background:#f0f3ff; }
-.main-sidebar .sidebar-menu .menu-header { padding:12px 25px; color:#a1a8ae; font-size:10px; letter-spacing:1.3px; }
-.card { border:0; box-shadow:0 4px 8px rgba(0,0,0,.03); border-radius:3px; }
-.page-center .card { border-top:2px solid #6777ef; }
-.page-center .navbar-brand img { content:url('/theme/malio/assets/img/stisla-fill.svg'); }
-.btn-primary { background:#6777ef; border-color:#6777ef; }
-@media(max-width:1024px) { .main-sidebar { left:-250px; } .main-navbar { left:0; } .everflame-user > .page-wrapper { margin-left:0; padding:100px 12px 0; } body.malio-sidebar-open .main-sidebar { left:0; } body.malio-sidebar-open .main-navbar { left:250px; } }
+/* Malio 用户端外壳样式，基于 Tabler 的 Bootstrap 5 组件。 */
+:root { --tblr-primary:#5664d9; --tblr-primary-rgb:86,100,217; --ef-bg:#f5f6fa; --ef-surface:#fff; --ef-text:#25324b; --ef-muted:#68758b; --ef-border:#e3e7ef; --ef-soft:#eef0ff; }
+body { background:var(--ef-bg); color:var(--ef-text); font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif; }
+body[data-bs-theme="dark"] { --ef-bg:#151b28; --ef-surface:#1e2738; --ef-text:#e5eaf4; --ef-muted:#a7b3c8; --ef-border:#344056; --ef-soft:#30385b; }
+.everflame-user.page { display:block; min-height:100vh; }
+.everflame-user > .page-wrapper { margin-left:248px; padding:88px 32px 0; display:block; min-height:100vh; }
+.everflame-user .container-xl { max-width:1280px; }
+.navbar-bg { display:none; }
+.main-navbar { left:248px; right:0; top:0; height:68px; padding:0 32px; position:fixed; z-index:880; background:var(--ef-surface); border-bottom:1px solid var(--ef-border); box-shadow:none; }
+.main-navbar .text-white { color:var(--ef-muted)!important; }
+.main-navbar a.text-white { color:var(--tblr-primary)!important; margin-left:12px; }
+#malio-sidebar-toggle { color:var(--ef-text)!important; background:var(--ef-bg); border:1px solid var(--ef-border); width:40px; height:40px; padding:8px; box-shadow:none; }
+.main-sidebar { width:248px; position:fixed; top:0; bottom:0; background:var(--ef-surface); border-right:1px solid var(--ef-border); z-index:900; overflow:auto; transition:left .2s; }
+.main-sidebar .sidebar-brand { height:88px; display:flex; align-items:center; padding:0 28px; font-size:21px; font-weight:750; letter-spacing:1.5px; }
+.sidebar-brand a { color:var(--ef-text); text-decoration:none; }
+.main-sidebar .sidebar-menu { padding:0 14px 24px; list-style:none; }
+.main-sidebar .sidebar-menu li a { display:flex; gap:12px; align-items:center; min-height:46px; margin:4px 0; padding:12px 16px; border-radius:8px; color:var(--ef-muted); font-weight:500; text-decoration:none; }
+.main-sidebar .sidebar-menu li a:hover { background:var(--ef-bg); color:var(--ef-text); }
+.main-sidebar .sidebar-menu li a.active { color:var(--tblr-primary); background:var(--ef-soft); font-weight:650; }
+.sidebar-menu .ti { font-size:20px; }
+.main-sidebar .sidebar-menu .menu-header { padding:22px 16px 8px; color:var(--ef-muted); font-size:11px; letter-spacing:1px; }
+.everflame-user .page-header { margin:20px 0 28px; color:var(--ef-text)!important; }
+.everflame-user .home-title { font-size:28px; font-weight:700; letter-spacing:-.5px; }
+.everflame-user .page-pretitle { color:var(--ef-muted); text-transform:none; letter-spacing:0; font-weight:400; }
+.everflame-user .page-pretitle.my-3 { margin:10px 0 0!important; }
+.everflame-user .page-body { margin-top:0; }
+.everflame-user .card { background:var(--ef-surface); border:1px solid var(--ef-border); box-shadow:0 3px 12px #192b4a04; border-radius:12px; overflow:hidden; }
+.everflame-user .card-body { padding:24px; }
+.everflame-user .card .card { box-shadow:none; border-radius:9px; }
+.everflame-user .card-title { color:var(--ef-text); font-size:16px; font-weight:650; margin-bottom:16px; }
+.everflame-user .card-footer { padding:16px 24px; background:var(--ef-bg); border-top:1px solid var(--ef-border); }
+.everflame-user .nav-tabs { padding:8px 16px 0; gap:8px; border-bottom:1px solid var(--ef-border); }
+.everflame-user .nav-tabs .nav-link { padding:16px 12px; color:var(--ef-muted); border:0; border-bottom:3px solid transparent; background:transparent; font-weight:600; }
+.everflame-user .nav-tabs .nav-link.active { color:var(--tblr-primary); border-bottom-color:var(--tblr-primary); background:var(--ef-soft); border-radius:6px 6px 0 0; }
+.everflame-user .form-control,.everflame-user .form-select { min-height:44px; border-color:var(--ef-border); border-radius:7px; background-color:var(--ef-surface); color:var(--ef-text); box-shadow:none; }
+.everflame-user .form-control:focus,.everflame-user .form-select:focus { border-color:var(--tblr-primary); box-shadow:0 0 0 3px #5664d926; }
+.everflame-user .form-control:disabled,.everflame-user .form-select:disabled { background-color:var(--ef-bg); color:var(--ef-muted); }
+.everflame-user .btn { min-height:40px; border-radius:7px; font-weight:600; padding:9px 16px; box-shadow:none; }
+.everflame-user .btn-primary { background:var(--tblr-primary); border-color:var(--tblr-primary); color:#fff; }
+.everflame-user .btn-primary:hover { background:#4653c4; border-color:#4653c4; }
+.everflame-user .btn:disabled { opacity:.5; cursor:not-allowed; }
+.everflame-user :focus-visible { outline:3px solid #8d98f1; outline-offset:3px; }
+.everflame-user code { color:var(--tblr-primary); background:var(--ef-soft); padding:3px 6px; border-radius:4px; overflow-wrap:anywhere; }
+.everflame-user .table { --tblr-table-border-color:var(--ef-border); }
+.everflame-user .footer { background:transparent; border:0; color:var(--ef-muted); padding:24px 0; }
+@media(min-width:1025px) { #malio-sidebar-toggle { display:none; } }
+@media(max-width:1024px) { .main-sidebar { left:-248px; box-shadow:12px 0 40px #192b4a20; } .main-navbar { left:0; padding:0 20px; } .everflame-user > .page-wrapper { margin-left:0; padding:84px 12px 0; } body.malio-sidebar-open .main-sidebar { left:0; } body.malio-sidebar-open .main-navbar { left:248px; } }
+@media(max-width:575px) { .everflame-user > .page-wrapper { padding-left:0; padding-right:0; } .everflame-user .card-body { padding:16px; } .everflame-user .card-footer { padding:14px 16px; } .everflame-user .nav-tabs { padding:6px 4px 0; gap:0; } .everflame-user .nav-tabs .nav-link { padding:14px 6px; font-size:13px; } .everflame-user .home-title { font-size:24px; } }
+@media(prefers-reduced-motion:reduce) { .main-sidebar { transition:none; } }
+/* 客户端卡片位于半宽仪表盘列中，需要允许内容换行。 */
+.everflame-user .recommended-section .client-item { flex-wrap:wrap; gap:16px!important; }
+.everflame-user .recommended-section .client-item > div { min-width:0; }
+.everflame-user .recommended-section .client-item .btn-group { flex-wrap:wrap; }
+.everflame-user .recommended-section .client-item .btn { padding:8px 12px; }
+.main-navbar { display:flex; align-items:center; }
