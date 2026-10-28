@@ -1,0 +1,6 @@
+.git
+.env
+vendor
+config/.config.php
+config/appprofile.php
+resources/theme-sources

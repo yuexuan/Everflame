@@ -52,3 +52,6 @@ package-lock.json
 storage/LocalClientVersion.json
 storage/.install_lock
 coverage/
+
+# Local database exports
+everflame-backup*.sql

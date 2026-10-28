@@ -1,0 +1,63 @@
+name: everflame
+services:
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: everflame
+      MARIADB_USER: everflame
+      MARIADB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD in .env}
+    command: ["--sql-mode=NO_ENGINE_SUBSTITUTION", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - db_data:/var/lib/mysql
+    networks: [data]
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    networks: [data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  app:
+    build:
+      context: .
+      dockerfile: deploy/docker/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${APP_PORT:-18087}:80"
+    environment:
+      DB_HOST: db
+      DB_DATABASE: everflame
+      DB_USERNAME: everflame
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      REDIS_HOST: redis
+      APP_KEY: ${APP_KEY:?Set APP_KEY in .env}
+      WEBAPI_KEY: ${WEBAPI_KEY:?Set WEBAPI_KEY in .env}
+      APP_URL: ${APP_URL:-http://localhost:18087}
+    volumes:
+      - app_storage:/var/www/html/storage
+    networks: [web, data]
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+networks:
+  web:
+  data:
+    internal: true
+volumes:
+  db_data:
+  redis_data:
+  app_storage:

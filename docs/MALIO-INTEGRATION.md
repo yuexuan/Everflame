@@ -46,3 +46,7 @@ git merge master
 ```
 
 Resolve upstream template contract changes against `resources/views/tabler/` and port them to `resources/views/malio/`; recompile templates and run the real deployment smoke tests before publishing. Everflame owns `resources/views/malio/`, `public/theme/malio/`, `resources/theme-sources/malio/` and this document. All app/src/config/database business files remain upstream. The copied admin/current templates need deliberate updates when upstream changes; there is no automatic fallback concealing missing templates.
+
+### Docker follow-up (2026-10-28)
+
+The separated Docker deployment is now running; see `docs/DOCKER.md`. With the real database initialized through upstream migrations, login/register GET requests and theme CSS return HTTP 200. Runtime dependency requirements pass. Authenticated user screens and original-layout fidelity remain unverified; the earlier limitations still apply to those screens.
