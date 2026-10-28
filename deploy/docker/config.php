@@ -17,3 +17,9 @@ $_ENV['appName'] = 'Everflame';
 $_ENV['theme'] = 'malio';
 $_ENV['subUrl'] = $_ENV['baseUrl'];
 $_ENV['webAPIUrl'] = $_ENV['baseUrl'];
+
+$_ENV['db_driver'] = getenv('DB_DRIVER') ?: 'mysql';
+if (! in_array($_ENV['db_driver'], ['mysql', 'mariadb'], true)) {
+    throw new RuntimeException('DB_DRIVER must be mysql or mariadb');
+}
+$_ENV['db_port'] = getenv('DB_PORT') ?: '3306';

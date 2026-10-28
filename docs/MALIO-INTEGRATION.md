@@ -50,3 +50,8 @@ Resolve upstream template contract changes against `resources/views/tabler/` and
 ### Docker follow-up (2026-10-28)
 
 The separated Docker deployment is now running; see `docs/DOCKER.md`. With the real database initialized through upstream migrations, login/register GET requests and theme CSS return HTTP 200. Runtime dependency requirements pass. Authenticated user screens and original-layout fidelity remain unverified; the earlier limitations still apply to those screens.
+
+
+### MySQL follow-up (2026-10-28)
+
+Local deployment now uses MySQL 8.4.13 with a clean schema baseline. `docs/DOCKER.md` supersedes the earlier MariaDB deployment notes. The MySQL schema snapshot and configurable DB driver/port are additional Everflame-maintained compatibility files. Cookie domain normalization for localhost/host:port and empty redirect fallback were also fixed after real authentication testing; retain these small diffs when syncing upstream. Secure/HttpOnly flags are unchanged. Login POST returns HX-Redirect=/user, and authenticated dashboard, product, server and admin pages return HTTP 200 against the real MySQL database. User/project data was explicitly authorized to be discarded; the administrator was recreated with the previously supplied credentials.

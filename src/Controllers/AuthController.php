@@ -68,7 +68,7 @@ final class AuthController extends BaseController
         $password = $request->getParam('password');
         $rememberMe = $request->getParam('remember_me') === 'true' ? 1 : 0;
         $email = strtolower(trim($this->antiXss->xss_clean($request->getParam('email'))));
-        $redir = $this->antiXss->xss_clean(Cookie::get('redir')) ?? '/user';
+        $redir = $this->antiXss->xss_clean(Cookie::get('redir')) ?: '/user';
         $user = (new User())->where('email', $email)->first();
         $loginIp = new LoginIp();
 
@@ -226,7 +226,7 @@ final class AuthController extends BaseController
         $money,
         $is_admin_reg
     ): ResponseInterface {
-        $redir = $this->antiXss->xss_clean(Cookie::get('redir')) ?? '/user';
+        $redir = $this->antiXss->xss_clean(Cookie::get('redir')) ?: '/user';
         $configs = Config::getClass('reg');
         // do reg user
         $user = new User();
@@ -394,7 +394,7 @@ final class AuthController extends BaseController
     public function webauthnHandle(ServerRequest $request, Response $response, $next): ResponseInterface
     {
         $data = $this->antiXss->xss_clean((array) $request->getParsedBody());
-        $redir = $this->antiXss->xss_clean(Cookie::get('redir')) ?? '/user';
+        $redir = $this->antiXss->xss_clean(Cookie::get('redir')) ?: '/user';
         $result = WebAuthn::assertHandle($data);
         if ($result['ret'] === 1) {
             $user = $result['user'];

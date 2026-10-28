@@ -1,0 +1,9 @@
+# Attach the app to an existing database, e.g. a 1Panel MySQL instance.
+# docker compose -f compose.yaml -f compose.external-db.yaml up -d app redis
+services:
+  db:
+    profiles: [local-database]
+  app:
+    depends_on: !override
+      redis:
+        condition: service_healthy

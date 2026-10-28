@@ -1,19 +1,20 @@
 name: everflame
 services:
   db:
-    image: mariadb:10.11
+    image: mysql:8.4
     restart: unless-stopped
     environment:
-      MARIADB_DATABASE: everflame
-      MARIADB_USER: everflame
-      MARIADB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
-      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD in .env}
+      MYSQL_DATABASE: ${DB_DATABASE:-everflame}
+      MYSQL_USER: ${DB_USERNAME:-everflame}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD in .env}
     command: ["--sql-mode=NO_ENGINE_SUBSTITUTION", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
     volumes:
-      - db_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+      - ./deploy/docker/mysql-schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
     networks: [data]
     healthcheck:
-      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      test: ["CMD-SHELL", "test -n \"$$(MYSQL_PWD=$$MYSQL_PASSWORD mysql -u$$MYSQL_USER -D $$MYSQL_DATABASE -Nse \"SELECT value FROM config WHERE item='db_version'\")\""]
       interval: 5s
       timeout: 5s
       retries: 30
@@ -37,9 +38,11 @@ services:
     ports:
       - "127.0.0.1:${APP_PORT:-18087}:80"
     environment:
-      DB_HOST: db
-      DB_DATABASE: everflame
-      DB_USERNAME: everflame
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_DRIVER: ${DB_DRIVER:-mysql}
+      DB_DATABASE: ${DB_DATABASE:-everflame}
+      DB_USERNAME: ${DB_USERNAME:-everflame}
       DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
       REDIS_HOST: redis
       APP_KEY: ${APP_KEY:?Set APP_KEY in .env}
@@ -58,6 +61,6 @@ networks:
   data:
     internal: true
 volumes:
-  db_data:
+  mysql_data:
   redis_data:
   app_storage:
