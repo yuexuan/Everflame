@@ -193,7 +193,7 @@
 
 {include file='telemetry.tpl'}
 
-<script src="/theme/malio/js/everflame.js"></script>
+<script src="/theme/malio/js/everflame.js?v=20261029c"></script>
 </body>
 
 </html>

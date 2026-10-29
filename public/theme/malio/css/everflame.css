@@ -3,48 +3,54 @@
 body { background:var(--ef-bg); color:var(--ef-text); font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif; }
 body[data-bs-theme="dark"] { --ef-bg:#151b28; --ef-surface:#1e2738; --ef-text:#e5eaf4; --ef-muted:#a7b3c8; --ef-border:#344056; --ef-soft:#30385b; }
 .everflame-user.page { display:block; min-height:100vh; }
-.everflame-user > .page-wrapper { margin-left:248px; padding:88px 32px 0; display:block; min-height:100vh; }
-.everflame-user .container-xl { max-width:1280px; }
+.everflame-user > .page-wrapper { margin-left:250px; padding:80px 30px 104px; display:block; min-height:100vh; }
+.everflame-user a,
+.everflame-user a:hover,
+.everflame-user a:focus-visible { text-decoration:none; }
+.everflame-user a { transition:color .2s, background-color .2s; }
+.everflame-user a.link-secondary:hover,
+.everflame-user a.link-secondary:focus-visible { color:var(--tblr-primary)!important; }
+.everflame-user .container-xl { max-width:none; padding-left:0; padding-right:0; }
 .navbar-bg { display:none; }
-.main-navbar { left:248px; right:0; top:0; height:68px; padding:0 32px; position:fixed; z-index:880; background:var(--ef-surface); border-bottom:1px solid var(--ef-border); box-shadow:none; }
+.main-navbar { left:250px; right:0; top:0; height:70px; padding:0 25px; position:fixed; z-index:880; background:var(--ef-surface); border-bottom:1px solid var(--ef-border); box-shadow:none; }
 .main-navbar .text-white { color:var(--ef-muted)!important; }
 .main-navbar a.text-white { color:var(--tblr-primary)!important; margin-left:12px; }
 #malio-sidebar-toggle { color:var(--ef-text)!important; background:var(--ef-bg); border:1px solid var(--ef-border); width:40px; height:40px; padding:8px; box-shadow:none; }
-.main-sidebar { width:248px; position:fixed; top:0; bottom:0; background:var(--ef-surface); border-right:1px solid var(--ef-border); z-index:900; overflow:auto; transition:left .2s; }
-.main-sidebar .sidebar-brand { height:88px; display:flex; align-items:center; padding:0 28px; font-size:21px; font-weight:750; letter-spacing:1.5px; }
+.main-sidebar { width:250px; position:fixed; top:0; bottom:0; background:var(--ef-surface); border-right:1px solid var(--ef-border); z-index:900; overflow:auto; transition:all .5s; }
+.main-sidebar .sidebar-brand { height:60px; display:flex; align-items:center; justify-content:center; padding:0; font-size:14px; font-weight:750; letter-spacing:1.5px; }
 .sidebar-brand a { color:var(--ef-text); text-decoration:none; }
-.main-sidebar .sidebar-menu { padding:0 14px 24px; list-style:none; }
-.main-sidebar .sidebar-menu li a { display:flex; gap:12px; align-items:center; min-height:46px; margin:4px 0; padding:12px 16px; border-radius:8px; color:var(--ef-muted); font-weight:500; text-decoration:none; }
+.main-sidebar .sidebar-menu { padding:0; margin:0; list-style:none; }
+.main-sidebar .sidebar-menu li a { display:flex; gap:0; align-items:center; height:50px; min-height:50px; margin:0; padding:0 20px; border-radius:0; color:var(--ef-muted); font-weight:500; text-decoration:none; }
 .main-sidebar .sidebar-menu li a:hover { background:var(--ef-bg); color:var(--ef-text); }
 .main-sidebar .sidebar-menu li a.active { color:var(--tblr-primary); background:var(--ef-soft); font-weight:650; }
-.sidebar-menu .ti { font-size:20px; }
-.main-sidebar .sidebar-menu .menu-header { padding:22px 16px 8px; color:var(--ef-muted); font-size:11px; letter-spacing:1px; }
+.sidebar-menu i { width:28px; margin-right:20px; text-align:center; font-size:14px; }
+.main-sidebar .sidebar-menu .menu-header { padding:3px 15px; margin-top:10px; color:var(--ef-muted); font-size:10px; letter-spacing:1.3px; font-weight:600; }
 .everflame-user .page-header { margin:20px 0 28px; color:var(--ef-text)!important; }
 .everflame-user .home-title { font-size:28px; font-weight:700; letter-spacing:-.5px; }
 .everflame-user .page-pretitle { color:var(--ef-muted); text-transform:none; letter-spacing:0; font-weight:400; }
 .everflame-user .page-pretitle.my-3 { margin:10px 0 0!important; }
 .everflame-user .page-body { margin-top:0; }
-.everflame-user .card { background:var(--ef-surface); border:1px solid var(--ef-border); box-shadow:0 3px 12px #192b4a04; border-radius:12px; overflow:hidden; }
+.everflame-user .card { background:var(--ef-surface); border:none; box-shadow:0 4px 8px rgba(0,0,0,.03); border-radius:3px; overflow:hidden; }
 .everflame-user .card-body { padding:24px; }
-.everflame-user .card .card { box-shadow:none; border-radius:9px; }
+.everflame-user .card .card { box-shadow:none; border-radius:3px; }
 .everflame-user .card-title { color:var(--ef-text); font-size:16px; font-weight:650; margin-bottom:16px; }
 .everflame-user .card-footer { padding:16px 24px; background:var(--ef-bg); border-top:1px solid var(--ef-border); }
 .everflame-user .nav-tabs { padding:8px 16px 0; gap:8px; border-bottom:1px solid var(--ef-border); }
 .everflame-user .nav-tabs .nav-link { padding:16px 12px; color:var(--ef-muted); border:0; border-bottom:3px solid transparent; background:transparent; font-weight:600; }
 .everflame-user .nav-tabs .nav-link.active { color:var(--tblr-primary); border-bottom-color:var(--tblr-primary); background:var(--ef-soft); border-radius:6px 6px 0 0; }
-.everflame-user .form-control,.everflame-user .form-select { min-height:44px; border-color:var(--ef-border); border-radius:7px; background-color:var(--ef-surface); color:var(--ef-text); box-shadow:none; }
+.everflame-user .form-control,.everflame-user .form-select { min-height:44px; border-color:var(--ef-border); border-radius:3px; background-color:var(--ef-surface); color:var(--ef-text); box-shadow:none; }
 .everflame-user .form-control:focus,.everflame-user .form-select:focus { border-color:var(--tblr-primary); box-shadow:0 0 0 3px #5664d926; }
 .everflame-user .form-control:disabled,.everflame-user .form-select:disabled { background-color:var(--ef-bg); color:var(--ef-muted); }
-.everflame-user .btn { min-height:40px; border-radius:7px; font-weight:600; padding:9px 16px; box-shadow:none; }
+.everflame-user .btn { min-height:40px; border-radius:3px; font-weight:600; padding:9px 16px; box-shadow:none; }
 .everflame-user .btn-primary { background:var(--tblr-primary); border-color:var(--tblr-primary); color:#fff; }
 .everflame-user .btn-primary:hover { background:#4653c4; border-color:#4653c4; }
 .everflame-user .btn:disabled { opacity:.5; cursor:not-allowed; }
 .everflame-user :focus-visible { outline:3px solid #8d98f1; outline-offset:3px; }
 .everflame-user code { color:var(--tblr-primary); background:var(--ef-soft); padding:3px 6px; border-radius:4px; overflow-wrap:anywhere; }
 .everflame-user .table { --tblr-table-border-color:var(--ef-border); }
-.everflame-user .footer { background:transparent; border:0; color:var(--ef-muted); padding:24px 0; }
+.everflame-user .footer { position:fixed; bottom:0; left:250px; right:0; z-index:870; margin:0; background:var(--ef-bg); border:0; color:var(--ef-muted); padding:24px 30px calc(24px + env(safe-area-inset-bottom, 0px)); transition:left .5s; }
 @media(min-width:1025px) { #malio-sidebar-toggle { display:none; } }
-@media(max-width:1024px) { .main-sidebar { left:-248px; box-shadow:12px 0 40px #192b4a20; } .main-navbar { left:0; padding:0 20px; } .everflame-user > .page-wrapper { margin-left:0; padding:84px 12px 0; } body.malio-sidebar-open .main-sidebar { left:0; } body.malio-sidebar-open .main-navbar { left:248px; } }
+@media(max-width:1024px) { .main-sidebar { left:-250px; box-shadow:12px 0 40px #192b4a20; } .main-navbar { left:0; padding:0 20px; } .everflame-user > .page-wrapper { margin-left:0; padding:84px 12px 0; } body.malio-sidebar-open .main-sidebar { left:0; } body.malio-sidebar-open .main-navbar { left:250px; } }
 @media(max-width:575px) { .everflame-user > .page-wrapper { padding-left:0; padding-right:0; } .everflame-user .card-body { padding:16px; } .everflame-user .card-footer { padding:14px 16px; } .everflame-user .nav-tabs { padding:6px 4px 0; gap:0; } .everflame-user .nav-tabs .nav-link { padding:14px 6px; font-size:13px; } .everflame-user .home-title { font-size:24px; } }
 @media(prefers-reduced-motion:reduce) { .main-sidebar { transition:none; } }
 /* 客户端卡片位于半宽仪表盘列中，需要允许内容换行。 */
@@ -53,3 +59,72 @@ body[data-bs-theme="dark"] { --ef-bg:#151b28; --ef-surface:#1e2738; --ef-text:#e
 .everflame-user .recommended-section .client-item .btn-group { flex-wrap:wrap; }
 .everflame-user .recommended-section .client-item .btn { padding:8px 12px; }
 .main-navbar { display:flex; align-items:center; }
+
+/* 根据原版 Malio 教程页面调整的平台教程卡片。 */
+.ef-os-card { display:flex; align-items:center; gap:24px; padding:30px; min-height:144px; border-radius:3px; color:#fff; text-decoration:none; box-shadow:0 4px 12px #192b4a16; }
+.ef-os-card { transition:filter .2s, transform .2s, box-shadow .2s; }
+.ef-os-card:hover, .ef-os-card:focus-visible { color:#fff; filter:brightness(1.06); transform:translateY(-3px); box-shadow:0 8px 20px #192b4a26; }
+.ef-os-card > .ti { font-size:48px; line-height:1; }
+.ef-os-card > div { flex:1; min-width:0; }
+.ef-os-card h3 { color:inherit; margin:0 0 8px; font-size:23px; }
+.ef-os-card p { margin:0; opacity:.9; }
+.ef-os-windows { background:linear-gradient(135deg,#0178d7,#218ab9); }
+.ef-os-android { background:linear-gradient(135deg,#427c23,#577e22); }
+.ef-os-ios { background:linear-gradient(135deg,#17191d,#414651); }
+.ef-os-mac { background:linear-gradient(135deg,#626c7b,#7b8593); }
+.ef-os-linux { background:linear-gradient(135deg,#975608,#ad680d); }
+.ef-os-faq { background:linear-gradient(135deg,#5664d9,#707ce3); }
+.ef-tutorial-steps { padding-left:26px; margin:0; }
+.ef-tutorial-steps > li { padding:8px 0 24px 10px; }
+.ef-tutorial-steps > li::marker { font-size:20px; font-weight:700; color:var(--tblr-primary); }
+.ef-tutorial-content p { line-height:1.9; }
+.ef-tutorial-content details { padding:18px 0; border-bottom:1px solid var(--ef-border); }
+.ef-tutorial-content summary { cursor:pointer; font-weight:600; }
+.ef-tutorial-content details p { margin:12px 0 0; }
+@media(max-width:575px) { .ef-os-card { padding:24px; gap:18px; } .ef-os-card > .ti { font-size:36px; } }
+
+/* 还原 Malio 原版页头样式，并调整钱包页面展示。 */
+.navbar-bg { display:block; position:absolute; top:0; left:250px; right:0; height:115px; background:#6777ef; }
+.main-navbar { background:#6777ef; border:0; box-shadow:none; }
+.main-navbar #malio-sidebar-toggle { display:inline-flex; align-items:center; justify-content:center; color:#fff!important; background:transparent; border:0; }
+.ef-account-menu { position:relative; color:#fff; }
+.ef-account-menu summary { display:flex; align-items:center; gap:10px; cursor:pointer; list-style:none; padding:6px 0 6px 12px; }
+.ef-account-menu summary::-webkit-details-marker { display:none; }
+.ef-account-avatar { display:grid; place-items:center; width:32px; height:32px; border-radius:50%; background:#fff; color:#6777ef; font-size:20px; }
+.ef-account-dropdown { position:absolute; right:0; top:calc(100% + 8px); min-width:190px; padding:8px; background:var(--ef-surface); border:1px solid var(--ef-border); border-radius:3px; box-shadow:0 8px 24px #192b4a20; }
+.ef-account-dropdown a { display:flex; align-items:center; gap:12px; padding:12px; color:var(--ef-text); text-decoration:none; border-radius:5px; }
+.ef-account-dropdown a:hover { background:var(--ef-soft); }
+.everflame-user .page-header { position:relative; margin:0 0 30px; padding:20px; background:var(--ef-surface); border-radius:3px; box-shadow:0 4px 8px rgba(0,0,0,.03); }
+.everflame-user .page-header .home-title { font-size:24px; }
+.ef-wallet-balance { position:relative; background:linear-gradient(180deg,#6777ef,#929cf2)!important; color:#fff; border:0!important; }
+.ef-wallet-balance .card-body { padding:36px; position:relative; }
+.ef-wallet-amount { color:#fff; font-size:38px; margin:0 0 8px; }
+.ef-wallet-watermark { position:absolute; top:-30px; right:12px; font-size:150px; font-weight:800; opacity:.12; pointer-events:none; }
+.ef-wallet-balance .btn-outline-light { color:#fff; border-color:#ffffffaa; }
+/* 参考 style-purple.css 实现侧栏迷你模式：宽 65px、链接高 45px、图标 20px。 */
+.main-sidebar .sidebar-brand-sm { display:none; }
+.main-navbar #malio-sidebar-toggle i { font-size:18px; line-height:32px; }
+.main-navbar, .navbar-bg, .everflame-user > .page-wrapper { transition:all .5s; }
+@media(min-width:1025px) {
+ body.sidebar-mini .main-sidebar { left:0; width:65px; box-shadow:none; }
+ body.sidebar-mini .main-sidebar .sidebar-brand { display:none; }
+ body.sidebar-mini .main-sidebar .sidebar-brand-sm { display:block; padding:0; height:60px; line-height:60px; text-align:center; font-size:14px; }
+ body.sidebar-mini .main-sidebar .sidebar-menu { padding:0; margin:0; }
+ body.sidebar-mini .main-sidebar .sidebar-menu > li { padding:10px; }
+ body.sidebar-mini .main-sidebar .sidebar-menu > li.menu-header { padding:0; font-size:0; height:2px; margin:10px 0 0; overflow:hidden; }
+ body.sidebar-mini .main-sidebar .sidebar-menu > li > a { border-radius:3px; height:45px; min-height:45px; margin:0; padding:0; justify-content:center; gap:0; }
+ body.sidebar-mini .main-sidebar .sidebar-menu > li > a i { margin:0; font-size:20px; }
+ body.sidebar-mini .main-sidebar .sidebar-menu > li > a span { display:none; }
+ body.sidebar-mini .main-sidebar .sidebar-menu > li > a.active { box-shadow:0 4px 8px #acb5f6; background-color:#6777ef; color:#fff; }
+ body.sidebar-mini .main-navbar, body.sidebar-mini .navbar-bg { left:65px; }
+ body.sidebar-mini .everflame-user > .page-wrapper { margin-left:65px; padding-left:25px; }
+}
+@media(prefers-reduced-motion:reduce) { .main-sidebar, .main-navbar, .navbar-bg, .everflame-user > .page-wrapper { transition:none; } }
+@media(max-width:1024px) { .navbar-bg { left:0; } }
+@media(max-width:575px) { .ef-account-name { max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; } .ef-wallet-balance .card-body { padding:24px; } }
+/* 为固定页脚预留空间，并适配窄屏和安全区域。 */
+.everflame-user > .page-wrapper { padding-bottom:calc(104px + env(safe-area-inset-bottom, 0px)); }
+@media(min-width:1025px) { body.sidebar-mini .everflame-user .footer { left:65px; padding-left:25px; } }
+@media(max-width:1024px) { .everflame-user .footer { left:0; padding-left:12px; padding-right:12px; } }
+@media(max-width:991px) { .everflame-user > .page-wrapper { padding-bottom:calc(144px + env(safe-area-inset-bottom, 0px)); } .everflame-user .footer { font-size:12px; } }
+@media(prefers-reduced-motion:reduce) { .everflame-user a, .everflame-user .footer { transition:none; } .ef-os-card:hover, .ef-os-card:focus-visible { transform:none; } }

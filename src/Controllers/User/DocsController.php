@@ -31,8 +31,17 @@ final class DocsController extends BaseController
         return $response->write(
             $this->view()
                 ->assign('docs', $docs)
+                ->assign('tutorial_os', $this->tutorialPlatform($request))
                 ->fetch('user/docs/index.tpl')
         );
+    }
+
+    private function tutorialPlatform(ServerRequest $request): string
+    {
+        $platform = $request->getQueryParams()['os'] ?? '';
+
+        return is_string($platform) && in_array($platform, ['windows', 'android', 'ios', 'mac', 'linux', 'faq'], true)
+            ? $platform : '';
     }
 
     /**

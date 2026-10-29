@@ -58,6 +58,12 @@ docker compose -f compose.yaml -f compose.external-db.yaml up -d app redis
 
 ## 运维
 
+### PHP 安全与注册默认值（2026-10-29）
+
+PHP 8.3 镜像构建要求至少 8.3.36，以包含 CVE-2026-109618 和 CVE-2026-109619 修复。`deploy/docker/security.ini` 在请求解析前关闭 `session.upload_progress.enabled`，按官方 2026-10-23 公告防护 CVE-2026-115560。构建更新基础镜像时使用 `docker compose build --pull app`，再更新 app 容器。
+
+当前运行容器已安装同一 INI 文件并完成重启；数据库设置 `reg_mode=close`、`reg_traffic=300`（系统按 1024³ 字节换算每 G）。此额度用于新注册用户，不重置现有用户额度或已用流量。注册开关和默认额度存储在数据库中，空库部署仍需在管理后台设置，重建容器会保留现有数据库设置。
+
 `docker compose down` 保留卷；`down -v` 会删除数据，不用于日常更新。管理员密码不写入代码或镜像。计划任务仍需按上游要求每五分钟执行 `php xcat Cron`，本地不自动启动后台业务任务。
 
 备份在 db 容器内运行 mysqldump，导出文件存仓库外并限制访问；不要将备份、数据库文件或 `.env` 提交 Git。

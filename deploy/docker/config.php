@@ -13,7 +13,7 @@ foreach ([
     }
     $_ENV[$setting] = $value;
 }
-$_ENV['appName'] = 'Everflame';
+$_ENV['appName'] = '火未央';
 $_ENV['theme'] = 'malio';
 $_ENV['subUrl'] = $_ENV['baseUrl'];
 $_ENV['webAPIUrl'] = $_ENV['baseUrl'];

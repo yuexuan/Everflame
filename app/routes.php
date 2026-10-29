@@ -34,6 +34,7 @@ return static function (Slim\App $app): void {
         $group->get('/announcement', App\Controllers\UserController::class . ':announcement');
         // 文档
         $group->get('/docs', App\Controllers\User\DocsController::class . ':index');
+        $group->get('/tutorial', App\Controllers\User\DocsController::class . ':index');
         $group->get('/docs/{id:[0-9]+}/view', App\Controllers\User\DocsController::class . ':detail');
         // 个人资料
         $group->get('/profile', App\Controllers\User\ProfileController::class . ':index');
@@ -85,6 +86,7 @@ return static function (Slim\App $app): void {
         $group->delete('/fido/{id:[0-9]+}', App\Controllers\User\MFAController::class . ':fidoDelete');
         // 账户余额
         $group->get('/money', App\Controllers\User\MoneyController::class . ':index');
+        $group->get('/code', App\Controllers\User\MoneyController::class . ':index');
         $group->post('/giftcard', App\Controllers\User\MoneyController::class . ':applyGiftCard');
         // 产品页面
         $group->get('/product', App\Controllers\User\ProductController::class . ':index');

@@ -1,4 +1,6 @@
 FROM php:8.3-apache-bookworm
+RUN php -r 'if (version_compare(PHP_VERSION, "8.3.36", "<")) { fwrite(STDERR, "PHP 8.3.36 or newer is required for security fixes.\n"); exit(1); }'
+COPY deploy/docker/security.ini /usr/local/etc/php/conf.d/zz-security.ini
 RUN apt-get update && apt-get install -y --no-install-recommends git unzip libzip-dev libyaml-dev libonig-dev libxml2-dev \
  && docker-php-ext-install -j"$(nproc)" bcmath mbstring pdo_mysql zip opcache \
  && pecl install redis yaml && docker-php-ext-enable redis yaml \

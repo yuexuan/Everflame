@@ -55,3 +55,17 @@ The separated Docker deployment is now running; see `docs/DOCKER.md`. With the r
 ### MySQL follow-up (2026-10-28)
 
 Local deployment now uses MySQL 8.4.13 with a clean schema baseline. `docs/DOCKER.md` supersedes the earlier MariaDB deployment notes. The MySQL schema snapshot and configurable DB driver/port are additional Everflame-maintained compatibility files. Cookie domain normalization for localhost/host:port and empty redirect fallback were also fixed after real authentication testing; retain these small diffs when syncing upstream. Secure/HttpOnly flags are unchanged. Login POST returns HX-Redirect=/user, and authenticated dashboard, product, server and admin pages return HTTP 200 against the real MySQL database. User/project data was explicitly authorized to be discarded; the administrator was recreated with the previously supplied credentials.
+
+### Tutorial follow-up (2026-10-29)
+
+The Malio docs index now contains the original tutorial page's six platform/FAQ cards and an adapted install/import/connect flow. `/user/tutorial` is an authenticated alias of the existing docs controller, retaining `display_docs` and paid-user restrictions; `/user/docs` and administrator-authored articles remain available. Query parameter `os` uses a fixed allowlist. Legacy client-specific PHP, import handlers, downloads and old screenshots are not executed: guides link to the current dashboard's configured clients and subscription tools. These are adapted introductory guides, not a complete port of every legacy client tutorial or a verified copy of jsmao.org. The original source templates remain unchanged.
+
+Validation: all active Malio templates compiled with the deployed Smarty runtime; the tutorial index and six guides rendered successfully. Controller checks use a test user in memory and the local database. Browser appearance and real client installation/import remain unverified.
+
+### Header and wallet follow-up (2026-10-29)
+
+Restored the purple Malio header, accessible native account dropdown, desktop/mobile sidebar toggle and sidebar wallet menu after comparing the authenticated jsmao.org wallet screen. `/user/code` aliases the current `/user/money` controller. The Malio wallet shows actual balance and balance-change logs, with links to existing orders and support for manual topup. Online payment and legacy recharge-code flows remain disabled. PHP syntax, empty/populated wallet rendering and escaped names/remarks passed. The authenticated local wallet, dropdown and desktop collapse/expand were verified in Chrome. Smarty runtime cache ownership was corrected to www-data after a permission warning surfaced during the browser check.
+
+### Original-style correction (2026-10-29)
+
+Use original Malio assets as the styling reference for subsequent work. Ported values from `style-purple.css` and the `toggle_sidebar_mini` flow in `malio-noobfs.js`: 250px expanded sidebar, 65px mini sidebar, retained icon links, 45px mini items, 20px mini icons, 18px Font Awesome menu icon, 0.5s transition, 3px cards and original light shadow. Reused original navigation icon classes from the archived navbar. Removed the custom 1280px content cap; mini mode starts content at 90px as in the original stylesheet. Current Bootstrap 5 markup and vanilla JS implement the compatible behavior without loading the old Bootstrap 4/jQuery runtime. Desktop collapse and expand were checked in the authenticated Chrome session; the corrected mini layout was visually inspected.
