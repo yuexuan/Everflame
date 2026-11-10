@@ -37,7 +37,7 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:${APP_PORT:-18087}:80"
-    environment:
+    environment: &app_environment
       DB_HOST: ${DB_HOST:-db}
       DB_PORT: ${DB_PORT:-3306}
       DB_DRIVER: ${DB_DRIVER:-mysql}
@@ -50,6 +50,18 @@ services:
       APP_URL: ${APP_URL:-http://localhost:18087}
     volumes:
       - app_storage:/var/www/html/storage
+    networks: [web, data]
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+  quota:
+    image: everflame-app
+    pull_policy: never
+    restart: unless-stopped
+    command: ["php", "scripts/monthly-traffic-worker.php"]
+    environment: *app_environment
     networks: [web, data]
     depends_on:
       db:

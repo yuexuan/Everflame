@@ -69,7 +69,7 @@
 </footer>
 </div>
 </div>
-<script src="//{$config['jsdelivr_url']}/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
+<script src="//{$config['jsdelivr_url']}/npm/@tabler/core@1.7.4/dist/js/tabler.min.js"></script>
 <script>
     function showToast(message, type = 'success') {
         const toast = document.createElement('div');

@@ -7,3 +7,7 @@ services:
     depends_on: !override
       redis:
         condition: service_healthy
+  quota:
+    depends_on: !override
+      redis:
+        condition: service_healthy

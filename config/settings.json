@@ -1170,30 +1170,39 @@
         "mark": "用户端口池最大值"
     },
     {
-        "item": "free_user_reset_day",
+        "item": "monthly_quota_worker_enabled",
         "value": "0",
+        "class": "cron",
+        "is_public": 0,
+        "type": "bool",
+        "default": "0",
+        "mark": "启用独立月度流量重置任务"
+    },
+    {
+        "item": "free_user_reset_day",
+        "value": "1",
         "class": "reg",
         "is_public": 0,
         "type": "int",
-        "default": "0",
+        "default": "1",
         "mark": "免费用戶的流量重置日"
     },
     {
         "item": "free_user_reset_bandwidth",
-        "value": "0",
+        "value": "300",
         "class": "reg",
         "is_public": 0,
         "type": "int",
-        "default": "0",
+        "default": "300",
         "mark": "需要重置的免费流量"
     },
     {
         "item": "reg_traffic",
-        "value": "0",
+        "value": "300",
         "class": "reg",
         "is_public": 0,
         "type": "int",
-        "default": "0",
+        "default": "300",
         "mark": "注册流量（GB）"
     },
     {
@@ -1225,11 +1234,11 @@
     },
     {
         "item": "reg_class_time",
-        "value": "0",
+        "value": "30",
         "class": "reg",
         "is_public": 0,
         "type": "int",
-        "default": "0",
+        "default": "30",
         "mark": "注册等级过期时间（天）"
     },
     {

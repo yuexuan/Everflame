@@ -24,13 +24,14 @@ final class SingBox extends Base
 
             switch ((int) $node_raw->sort) {
                 case 0:
+                    $credentials = ShadowsocksCredentials::resolve($node_custom_config ?? [], $user);
                     $node = [
                         'type' => 'shadowsocks',
                         'tag' => $node_raw->name,
                         'server' => $node_raw->server,
-                        'server_port' => (int) $user->port,
-                        'method' => $user->method,
-                        'password' => $user->passwd,
+                        'server_port' => $credentials['port'],
+                        'method' => $credentials['method'],
+                        'password' => $credentials['password'],
                     ];
 
                     break;

@@ -45,6 +45,7 @@ return static function (Slim\App $app): void {
         $group->get('/banned', App\Controllers\UserController::class . ':banned');
         // 节点
         $group->get('/server', App\Controllers\User\ServerController::class . ':index');
+        $group->get('/traffic', App\Controllers\User\TrafficController::class . ':index');
         // 动态倍率
         $group->get('/rate', App\Controllers\User\RateController::class . ':index');
         $group->post('/rate', App\Controllers\User\RateController::class . ':ajax');
@@ -271,6 +272,9 @@ return static function (Slim\App $app): void {
         $group->post('/setting/ref', App\Controllers\Admin\Setting\RefController::class . ':save');
         $group->get('/setting/reg', App\Controllers\Admin\Setting\RegController::class . ':index');
         $group->post('/setting/reg', App\Controllers\Admin\Setting\RegController::class . ':save');
+        $group->get('/setting/dns', App\Controllers\Admin\Setting\DnsController::class . ':index');
+        $group->get('/setting/dns/data', App\Controllers\Admin\Setting\DnsController::class . ':data');
+        $group->post('/setting/dns', App\Controllers\Admin\Setting\DnsController::class . ':save');
         $group->get('/setting/sub', App\Controllers\Admin\Setting\SubController::class . ':index');
         $group->post('/setting/sub', App\Controllers\Admin\Setting\SubController::class . ':save');
         $group->get('/setting/support', App\Controllers\Admin\Setting\SupportController::class . ':index');
@@ -319,6 +323,9 @@ return static function (Slim\App $app): void {
         $group->post('/invoice/{id:[0-9]+}/mark_paid', App\Controllers\Admin\InvoiceController::class . ':markPaid');
         $group->post('/invoice/ajax', App\Controllers\Admin\InvoiceController::class . ':ajax');
     })->add(new Admin());
+    $app->map(['GET', 'POST'], '/api/ef/v1/{action:desired-state|heartbeat|usage|probe-state|probe}',
+        App\Controllers\EfAgentController::class . ':handle');
+
     // WebAPI
     $app->group('/mod_mu', static function (RouteCollectorProxy $group): void {
         // 节点

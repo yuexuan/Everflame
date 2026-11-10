@@ -19,8 +19,7 @@
 
     <!-- js -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1"></script>
-    <!-- favicon -->
-    <!-- ... -->
+    <link rel="icon" type="image/svg+xml" href="/images/everflame-logo.svg">
     <style>
         body {
             position: relative;

@@ -1,0 +1,15 @@
+services:
+  observer:
+    build:
+      context: ../SLINX-EF
+      dockerfile: ${EF_OBSERVER_DOCKERFILE:-Dockerfile.ef-observer}
+    image: everflame-observer
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:mode=1777
+    volumes:
+      - ./storage/ef-observer.json:/run/secrets/ef-observer.json:ro
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [web]

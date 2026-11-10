@@ -5,8 +5,8 @@
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <meta charset="utf-8"/>
-    <link rel="shortcut icon" href="/favicon.ico"/>
-    <link rel="bookmark" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="/images/everflame-logo.svg" type="image/svg+xml"/>
+    <link rel="bookmark" href="/images/everflame-logo.svg" type="image/svg+xml"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <link rel="shortcut icon" type="image/ico" href="images/ssr.ico">
     <style>

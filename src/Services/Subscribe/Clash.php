@@ -16,9 +16,9 @@ final class Clash extends Base
     public function getContent($user): string
     {
         $nodes = [];
-        $clash_config = $_ENV['Clash_Config'];
-        $clash_group_indexes = $_ENV['Clash_Group_Indexes'];
-        $clash_group_config = $_ENV['Clash_Group_Config'];
+        $clash_config = $_ENV['Clash_Config'] ?? [];
+        $clash_group_indexes = $_ENV['Clash_Group_Indexes'] ?? [];
+        $clash_group_config = $_ENV['Clash_Group_Config'] ?? [];
         $nodes_raw = Subscribe::getUserNodes($user);
 
         foreach ($nodes_raw as $node_raw) {
@@ -26,6 +26,7 @@ final class Clash extends Base
 
             switch ((int) $node_raw->sort) {
                 case 0:
+                    $credentials = ShadowsocksCredentials::resolve($node_custom_config ?? [], $user);
                     $plugin = $node_custom_config['plugin'] ?? '';
                     $plugin_option = $node_custom_config['plugin_option'] ?? null;
                     // Clash 特定配置
@@ -35,9 +36,9 @@ final class Clash extends Base
                         'name' => $node_raw->name,
                         'type' => 'ss',
                         'server' => $node_raw->server,
-                        'port' => (int) $user->port,
-                        'password' => $user->passwd,
-                        'cipher' => $user->method,
+                        'port' => $credentials['port'],
+                        'password' => $credentials['password'],
+                        'cipher' => $credentials['method'],
                         'udp' => (bool) $udp,
                         'plugin' => $plugin,
                         'plugin-opts' => $plugin_option,
@@ -177,6 +178,20 @@ final class Clash extends Base
             foreach ($clash_group_indexes as $index) {
                 $clash_group_config['proxy-groups'][$index]['proxies'][] = $node_raw->name;
             }
+        }
+
+        if (isset($_ENV['Clash_Mihomo_Profile'])) {
+            $options = $_ENV['Clash_Mihomo_Profile'];
+            $dnsSettings = MihomoDnsSettings::load();
+            if ($dnsSettings !== null) {
+                try {
+                    MihomoDns::compile($dnsSettings, MihomoProfile::build($nodes, $options));
+                    $options['dns-settings'] = $dnsSettings;
+                } catch (\Throwable $error) {
+                    error_log('Invalid Mihomo DNS settings; using template baseline: ' . get_class($error));
+                }
+            }
+            return yaml_emit(MihomoProfile::build($nodes, $options), YAML_UTF8_ENCODING);
         }
 
         $clash_nodes = [

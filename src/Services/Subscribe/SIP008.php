@@ -25,15 +25,16 @@ final class SIP008 extends Base
             $node_custom_config = json_decode($node_raw->custom_config, true);
 
             if ((int) $node_raw->sort === 0) {
+                $credentials = ShadowsocksCredentials::resolve($node_custom_config ?? [], $user);
                 $plugin = $node_custom_config['plugin'] ?? '';
                 $plugin_option = $node_custom_config['plugin_option'] ?? '';
                 $node = [
                     'id' => $node_raw->id,
                     'remarks' => $node_raw->name,
                     'server' => $node_raw->server,
-                    'server_port' => (int) $user->port,
-                    'password' => $user->passwd,
-                    'method' => $user->method,
+                    'server_port' => $credentials['port'],
+                    'password' => $credentials['password'],
+                    'method' => $credentials['method'],
                     'plugin' => $plugin,
                     'plugin_opts' => $plugin_option,
                 ];

@@ -1,0 +1,6 @@
+#dns-manager .dns-editor-row {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 20px;align-items:end}
+#dns-manager label {font-size:14px;font-weight:500}
+#dns-manager input.form-control,#dns-manager select {margin-top:6px;min-height:38px}
+#dns-output {max-height:420px;overflow:auto;padding:16px;border:1px solid var(--tblr-border-color,#dce1e7);border-radius:6px;font-size:13px}
+#dns-status {padding:12px 16px;border-left:3px solid var(--tblr-primary,#206bc4);background:var(--tblr-bg-surface-secondary,#f5f7fb)}
+@media(max-width:767px){#dns-manager .dns-editor-row{grid-template-columns:1fr}#dns-manager .btn{margin-bottom:8px}}

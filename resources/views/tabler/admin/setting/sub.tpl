@@ -14,6 +14,7 @@
                 </div>
                 <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
+                        <a href="/admin/setting/dns" class="btn btn-secondary">DNS 管理</a>
                         <a id="save-setting" href="#" class="btn btn-primary">
                             <i class="icon ti ti-device-floppy"></i>
                             保存

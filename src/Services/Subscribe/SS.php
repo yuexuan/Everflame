@@ -23,7 +23,8 @@ final class SS extends Base
 
         foreach ($nodes_raw as $node_raw) {
             if ((int) $node_raw->sort === 0) {
-                $links .= base64_encode($user->method . ':' . $user->passwd . '@' . $node_raw->server . ':' . $user->port) . '#' .
+                $credentials = ShadowsocksCredentials::resolve(json_decode($node_raw->custom_config, true) ?? [], $user);
+                $links .= base64_encode($credentials['method'] . ':' . $credentials['password'] . '@' . $node_raw->server . ':' . $credentials['port']) . '#' .
                     $node_raw->name . PHP_EOL;
             }
         }

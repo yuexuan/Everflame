@@ -2,86 +2,41 @@
 
 <div class="page-wrapper">
     <div class="container-xl">
-        <div class="page-header d-print-none text-white">
-            <div class="row align-items-center">
-                <div class="col">
-                    <h2 class="page-title">
-                        <span class="home-title">节点列表</span>
-                    </h2>
-                    <div class="page-pretitle my-3">
-                        <span class="home-subtitle">查看节点在线情况</span>
-                    </div>
-                </div>
-            </div>
+        <div class="page-header d-print-none">
+            <h1 class="page-title"><span class="home-title">节点列表</span></h1>
+            <div class="page-pretitle my-3"><span class="home-subtitle">查看节点在线情况、流量倍率与限速</span></div>
         </div>
     </div>
     <div class="page-body">
-        <div class="container-xl">
-            <div class="row row-deck row-cards">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="tab-content">
-                                <div class="row row-deck row-cards">
-                                    {foreach $servers as $server}
-                                        <div class="col-lg-4 col-md-6 col-sm-12">
-                                            <div class="card">
-                                                {if $server['class'] === 0}
-                                                    <div class="ribbon bg-blue">免费</div>
-                                                {else}
-                                                    <div class="ribbon bg-blue">LV. {$server['class']}</div>
-                                                {/if}
-                                                <div class="card-body">
-                                                    <div class="row g-3 align-items-center">
-                                                        <div class="col-auto">
-                                                            <span class="status-indicator status-{$server['color']}
-                                                                 status-indicator-animated">
-                                                                <span class="status-indicator-circle"></span>
-                                                                <span class="status-indicator-circle"></span>
-                                                                <span class="status-indicator-circle"></span>
-                                                            </span>
-                                                        </div>
-                                                        <div class="col">
-                                                            <h2 class="page-title" style="font-size: 16px;">
-                                                                {$server['name']}&nbsp;
-                                                                <span class="card-subtitle my-2"
-                                                                      style="font-size: 10px;">  {$server['node_bandwidth']} /
-                                                                    {$server['node_bandwidth_limit']}
-                                                                </span>
-                                                            </h2>
-                                                            <div class="text-secondary badges-list">
-                                                                <span class="badge bg-blue-lt">
-                                                                    <i class="ti ti-users"></i>
-                                                                    {$server['online_user']}</span>
-                                                                <span class="badge bg-blue-lt">
-                                                                    {if $server['is_dynamic_rate']}
-                                                                        动态倍率
-                                                                    {else}
-                                                                        {$server['traffic_rate']} 倍
-                                                                    {/if}
-                                                                </span>
-                                                                <span class="badge bg-blue-lt">{$server['sort']}</span>
-                                                                {if $server['connection_type'] !== 0}
-                                                                <span class="badge bg-blue-lt">IPv6</span>
-                                                                {/if}
-                                                                {if $user->class < $server['class']}
-                                                                <span class="badge bg-red-lt">无权限</span>
-                                                                <span class="badge bg-pink-lt">当前账户等级小于节点等级</span>
-                                                                <span class="badge bg-green-lt">前往 <a href="/user/product">商品页面</a> 订购时间流量包</span>
-                                                                {/if}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {/foreach}
+        <div class="container-xl ef-node-list">
+            {foreach $server_groups as $node_class => $group}
+                <section class="ef-node-group" aria-labelledby="node-group-{$node_class}">
+                    <h2 class="ef-node-group-title" id="node-group-{$node_class}">{if $node_class === 0}免费节点{else}VIP {$node_class} 节点{/if}</h2>
+                    <div class="ef-node-grid">
+                        {foreach $group as $server}
+                            <article class="card ef-node-card">
+                                <div class="card-body">
+                                    {if $server['region_flag'] !== ''}
+                                        <img class="ef-node-flag" src="/theme/malio/assets/modules/flag-icon-css/flags/1x1/{$server['region_flag']}.svg" alt="" width="54" height="54">
+                                    {else}
+                                        <span class="ef-node-flag ef-node-flag-fallback"><i class="ti ti-world" aria-hidden="true"></i></span>
+                                    {/if}
+                                    <div class="ef-node-info">
+                                        <h3 class="ef-node-name"><span class="ef-node-status ef-node-status-{$server['color']|escape}" role="img" aria-label="{if $server['online'] === 1}在线{elseif $server['online'] === 0}待上报{else}离线{/if}" title="{$server['health_reason']|escape}"></span><span>{$server['name']|escape}</span></h3>
+                                        <p class="ef-node-description">{$server['sort']|escape}{if $server['connection_type'] !== 0} · IPv6{/if}{if $user->class < $server['class']} · <a href="/user/product">升级套餐解锁</a>{/if}</p>
+                                    </div>
+                                    <dl class="ef-node-metrics">
+                                        <div><dt>倍率{if $server['is_dynamic_rate']}（动态）{/if}</dt><dd>×{$server['traffic_rate']|string_format:'%.2f'}</dd></div>
+                                        <div><dt>限速</dt><dd>{if $server['speed_limit'] > 0}{$server['speed_limit']}<small> Mbps</small>{else}不限速{/if}</dd></div>
+                                    </dl>
                                 </div>
-                            </div>
-                        </div>
+                            </article>
+                        {/foreach}
                     </div>
-                </div>
-            </div>
+                </section>
+            {foreachelse}
+                <div class="card"><div class="card-body text-center text-secondary py-5">暂无可用节点，请稍后再来查看。</div></div>
+            {/foreach}
         </div>
     </div>
 

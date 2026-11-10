@@ -13,8 +13,8 @@
 </nav>
 <div class="main-sidebar sidebar-style-2">
 <aside id="sidebar-wrapper">
-<div class="sidebar-brand"><a href="/user">{$config['appName']|escape}</a></div>
-<div class="sidebar-brand sidebar-brand-sm"><a href="/user" aria-label="{$config['appName']|escape}">火</a></div>
+<div class="sidebar-brand"><a href="/user"><img src="/images/everflame-logo.svg" alt="" style="width:30px;height:30px;vertical-align:middle;margin-right:8px">{$config['appName']|escape}</a></div>
+<div class="sidebar-brand sidebar-brand-sm"><a href="/user" aria-label="{$config['appName']|escape}"><img src="/images/everflame-logo.svg" alt="" style="width:32px;height:32px"></a></div>
 <ul class="sidebar-menu">
 <li><a class="nav-link" href="/user"><i class="fab fa-fort-awesome" aria-hidden="true"></i><span>首页</span></a></li>
 <li><a class="nav-link" href="/user/product"><i class="fas fa-store" aria-hidden="true"></i><span>套餐展示</span></a></li>
@@ -24,6 +24,7 @@
 <li><a class="nav-link" href="/user/edit"><i class="fas fa-cog" aria-hidden="true"></i><span>账户设置</span></a></li>
 <li class="menu-header">使用</li>
 <li><a class="nav-link" href="/user/server"><i class="fas fa-server" aria-hidden="true"></i><span>节点列表</span></a></li>
+<li><a class="nav-link" href="/user/traffic"><i class="fas fa-chart-bar" aria-hidden="true"></i><span>流量监控</span></a></li>
 <li><a class="nav-link" href="/user/tutorial"><i class="fas fa-book" aria-hidden="true"></i><span>下载和教程</span></a></li>
 <li><a class="nav-link" href="/user/ticket"><i class="fas fa-headset" aria-hidden="true"></i><span>工单支持</span></a></li>
 {if $user->is_admin}<li><a class="nav-link" href="/admin"><i class="fas fa-cogs" aria-hidden="true"></i><span>站点管理</span></a></li>{/if}

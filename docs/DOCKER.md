@@ -19,6 +19,28 @@ docker compose exec -it app php xcat Tool createAdmin
 
 本地入口 http://localhost:18087。更新代码：`docker compose up -d --build --no-deps app`，不会重建数据库。
 
+## Cloudflare HTTPS 入口（2026-11-08）
+
+公网入口为 https://ef.reelfires.com，使用独立的 `everflame-panel` Cloudflare Tunnel（ID：`52f6d04a-d65d-481a-bb44-5511e3df981b`）。已发布应用路由为 `ef.reelfires.com` → `http://app:80`，DNS 为代理 CNAME，指向该隧道的 `52f6d04a-d65d-481a-bb44-5511e3df981b.cfargotunnel.com`。
+
+`compose.cloudflare.yaml` 在 web 网络中增加独立 cloudflared 容器，采用 HTTP/2 出站连接和 `unless-stopped` 重启策略。面板端口仍只绑定本机，数据库不发布端口。Cloudflare 终止公网 HTTPS，隧道将请求转发到 Docker 内的面板。运行此入口需要本机、Docker 和面板容器保持运行。
+
+本机忽略提交的 `.env` 已设置 `APP_URL=https://ef.reelfires.com` 和 `CLOUDFLARE_TUNNEL_TOKEN`；部署适配器同步使用该地址生成主站、订阅和 WebAPI 链接。隧道令牌不写入仓库或文档。启动或更新：
+
+```powershell
+docker compose -f compose.yaml -f compose.cloudflare.yaml up -d
+docker compose -f compose.yaml -f compose.cloudflare.yaml up -d --build --no-deps app
+docker compose -f compose.yaml -f compose.cloudflare.yaml logs --tail 30 cloudflared
+```
+
+以后使用外部数据库时，在同一命令中另外加入 `-f compose.external-db.yaml`。
+
+Cloudflare 单一重定向规则 `EverFlame HTTP to HTTPS` 仅匹配 `http://ef.reelfires.com/*`，以 308 跳转至 HTTPS，保留路径、查询字符串和请求方法。面板继续使用原有登录验证，注册保持关闭。
+
+已验证 HTTPS 登录页返回 200、未登录访问 `/user` 和 `/admin` 返回登录页重定向，HTTP 请求以 308 跳转且保留查询字符串；浏览器可以正常显示公网登录页。未使用用户账号密码执行登录测试。
+
+节点列表与流量监控的控制器、模板、静态资源必须一起构建进镜像。不要仅用 `docker cp` 更新运行容器：它会在重建后丢失，也可能让新版模板搭配旧版控制器，导致节点列表误显示为空。更新后检查 `/user/server` 和 `/user/traffic`，并确认当前运行镜像 ID 与 `everflame-app` 的镜像 ID 一致。
+
 ## 为什么有独立 MySQL 表结构
 
 当前上游虽然声明支持 MySQL，历史迁移实际上包含 MariaDB 专用语法和类型。`deploy/docker/mysql-schema.sql` 是从上游 c2ab3003cc4bf70237eb6ae82b3c65f31fb1f051 的完整迁移结果（2025073100）导出的纯表结构，无用户、密码或业务数据。
@@ -49,7 +71,7 @@ DB_DRIVER=mysql
 使用现成外部数据库覆盖配置，移除 app 对本地 db 的启动依赖：
 
 ```powershell
-docker compose -f compose.yaml -f compose.external-db.yaml up -d app redis
+docker compose -f compose.yaml -f compose.external-db.yaml up -d app redis quota
 ```
 
 覆盖配置采用 Docker Compose 的 `!override` 标签，要求 Compose 2.24.4+。以后保持使用这两个 `-f` 参数管理应用。本地 db 服务被移入可选 profile；已运行的本地 db 不会自动被删除，需要时可单独停止。不要用普通默认配置重新启动 app，否则会恢复对本地 db 的启动依赖。
@@ -64,7 +86,9 @@ PHP 8.3 镜像构建要求至少 8.3.36，以包含 CVE-2026-109618 和 CVE-2026
 
 当前运行容器已安装同一 INI 文件并完成重启；数据库设置 `reg_mode=close`、`reg_traffic=300`（系统按 1024³ 字节换算每 G）。此额度用于新注册用户，不重置现有用户额度或已用流量。注册开关和默认额度存储在数据库中，空库部署仍需在管理后台设置，重建容器会保留现有数据库设置。
 
-`docker compose down` 保留卷；`down -v` 会删除数据，不用于日常更新。管理员密码不写入代码或镜像。计划任务仍需按上游要求每五分钟执行 `php xcat Cron`，本地不自动启动后台业务任务。
+`docker compose down` 保留卷；`down -v` 会删除数据，不用于日常更新。管理员密码不写入代码或镜像。
+
+当前增加独立 `quota` 服务，每五分钟检查月度流量周期，仅处理额度重置，不运行邮件、通知、订单等全量 `php xcat Cron` 任务。`monthly_quota_worker_enabled=1` 时启用；原全量 Cron 的免费用户重置入口也会调用同一套周期记录，避免重复清零。其余上游定时任务仍需另行按需配置。
 
 备份在 db 容器内运行 mysqldump，导出文件存仓库外并限制访问；不要将备份、数据库文件或 `.env` 提交 Git。
 

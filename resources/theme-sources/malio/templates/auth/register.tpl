@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/images/everflame-logo.svg">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>{$i18n->get('sign-up')} &mdash; {$config["appName"]}</title>
 
@@ -29,7 +30,7 @@
         <div class="row">
           <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
             <div class="login-brand">
-              <img src="/theme/malio/assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
+              <img src="/images/everflame-logo.svg" alt="EverFlame 火未央" width="100" class="shadow-light rounded-circle">
             </div>
 
             <div class="card card-primary">

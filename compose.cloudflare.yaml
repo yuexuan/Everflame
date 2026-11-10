@@ -1,0 +1,20 @@
+# 公开 HTTPS 入口；凭据保存在已忽略的 .env 文件中。
+# docker compose -f compose.yaml -f compose.cloudflare.yaml up -d cloudflared
+services:
+  cloudflared:
+    image: cloudflare/cloudflared@sha256:4955524aeaa379e154023d5a027c250f7b35041a2e7e950cf13f144bc9b9c5ba
+    restart: unless-stopped
+    command: ["tunnel", "--no-autoupdate", "--protocol", "quic", "run", "--dns-resolver-addrs", "1.1.1.1:53", "--dns-resolver-addrs", "8.8.8.8:53"]
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:?Set CLOUDFLARE_TUNNEL_TOKEN in .env}
+    networks: [web]
+    # 此主机上的 Docker 会继承 Fake-IP DNS 解析器。固定使用已公布的
+    # Cloudflare 边缘网段，避免隧道启动依赖该代理。
+    extra_hosts:
+      - "region1.v2.argotunnel.com:198.41.192.67"
+      - "region1.v2.argotunnel.com:198.41.192.167"
+      - "region2.v2.argotunnel.com:198.41.200.63"
+      - "region2.v2.argotunnel.com:198.41.200.193"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]

@@ -55,3 +55,6 @@ coverage/
 
 # Local database exports
 everflame-backup*.sql
+storage/ef-*.json
+storage/ef-backups/
+storage/design-previews/

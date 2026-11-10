@@ -1,4 +1,5 @@
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/images/everflame-logo.svg">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
 
 <!-- General CSS Files -->

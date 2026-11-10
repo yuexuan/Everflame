@@ -9,6 +9,7 @@ use App\Models\Node;
 use App\Services\Subscribe\Clash;
 use App\Services\Subscribe\Json;
 use App\Services\Subscribe\SingBox;
+use App\Services\Subscribe\ShadowsocksCredentials;
 use App\Services\Subscribe\SIP002;
 use App\Services\Subscribe\SIP008;
 use App\Services\Subscribe\SS;
@@ -53,7 +54,15 @@ final class Subscribe
             $query->where('node_bandwidth_limit', '=', 0)->orWhereRaw('node_bandwidth < node_bandwidth_limit');
         })->orderBy('node_class')
             ->orderBy('name')
-            ->get();
+            ->get()
+            ->filter(static fn (Node $node): bool => ShadowsocksCredentials::visibleTo(
+                json_decode($node->custom_config, true) ?? [],
+                (int) $user->id
+            ))->sortBy(static function (Node $node): array {
+                $external = (json_decode($node->custom_config, true) ?? [])['external_shadowsocks'] ?? [];
+
+                return [(int) $node->node_class, $external['source_order'] ?? PHP_INT_MAX, $node->name];
+            })->values();
     }
 
     public static function getContent($user, string $type): string

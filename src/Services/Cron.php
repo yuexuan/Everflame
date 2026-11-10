@@ -46,6 +46,11 @@ final class Cron
             '<',
             date('Y-m-d', time() - 86400 * Config::obtain('traffic_log_retention_days'))
         )->delete();
+        // 节点统计至少保留完整的六个月查询窗口。
+        if (DB::connection()->getSchemaBuilder()->hasTable('node_hourly_usage')) {
+            DB::connection()->table('node_hourly_usage')->where('hour_at', '<',
+                time() - 86400 * max(186, (int) Config::obtain('traffic_log_retention_days')))->delete();
+        }
         (new DetectLog())->where('datetime', '<', time() - 86400 * 3)->delete();
         (new EmailQueue())->where('time', '<', time() - 86400)->delete();
         (new OnlineLog())->where('last_time', '<', time() - 86400)->delete();
@@ -459,6 +464,11 @@ final class Cron
 
     public static function resetFreeUserBandwidth(): void
     {
+        if (Config::obtain('monthly_quota_worker_enabled')) {
+            MonthlyTrafficReset::run(new \DateTimeImmutable());
+            return;
+        }
+
         $freeUsers = (new User())->where('class', 0)
             ->where('auto_reset_day', date('d'))->get();
 

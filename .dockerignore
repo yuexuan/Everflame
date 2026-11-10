@@ -4,3 +4,7 @@ vendor
 config/.config.php
 config/appprofile.php
 resources/theme-sources
+storage/ef-*.json
+storage/ef-backups
+storage/traffic-check
+storage/design-previews

@@ -8,8 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <meta name="referrer" content="never">
     <title>{$config['appName']}</title>
+    <link rel="icon" type="image/svg+xml" href="/images/everflame-logo.svg">
     <!-- CSS files -->
-    <link href="//{$config['jsdelivr_url']}/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="//{$config['jsdelivr_url']}/npm/@tabler/core@1.7.4/dist/css/tabler.min.css" rel="stylesheet"/>
     <link href="//{$config['jsdelivr_url']}/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet"/>
     <link href="//{$config['jsdelivr_url']}/npm/@fortawesome/fontawesome-free@5.8.2/css/all.min.css" rel="stylesheet"/>
     <!-- JS files -->
@@ -29,7 +30,7 @@
 
 
 <link rel="stylesheet" href="/theme/malio/css/malio.css">
-<link rel="stylesheet" href="/theme/malio/css/everflame.css?v=20261029d">
+<link rel="stylesheet" href="/theme/malio/css/everflame.css?v=20261108a">
 </head>
 
 {if $user->is_dark_mode}

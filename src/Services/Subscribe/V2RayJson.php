@@ -24,13 +24,14 @@ final class V2RayJson extends Base
 
             switch ((int) $node_raw->sort) {
                 case 0:
+                    $credentials = ShadowsocksCredentials::resolve($node_custom_config ?? [], $user);
                     $node = [
                         'protocol' => 'shadowsocks',
                         'settings' => [
                             'address' => $node_raw->server,
-                            'port' => (int) $user->port,
-                            'method' => $user->method,
-                            'password' => $user->passwd,
+                            'port' => $credentials['port'],
+                            'method' => $credentials['method'],
+                            'password' => $credentials['password'],
                         ],
                         'tag' => $node_raw->name,
                     ];

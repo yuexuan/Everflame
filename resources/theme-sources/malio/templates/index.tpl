@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
 
   <title>{$config['appName']}</title>
-  <link rel="shortcut icon" href="/">
+  <link rel="icon" type="image/svg+xml" href="/images/everflame-logo.svg">
   <link rel="stylesheet" href="/theme/malio/index/css/prism.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.min.css">

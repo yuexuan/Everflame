@@ -8,8 +8,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends git unzip libzi
 RUN apt-get update && apt-get install -y --no-install-recommends libgmp-dev && docker-php-ext-install gmp && rm -rf /var/lib/apt/lists/*
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/html
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --prefer-dist --no-interaction --no-autoloader
 COPY . .
-RUN composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader \
+RUN composer dump-autoload --no-dev --optimize --no-interaction \
  && cp config/appprofile.example.php config/appprofile.php \
  && mkdir -p storage/framework/smarty/compile storage/framework/smarty/cache \
  && chown -R www-data:www-data storage

@@ -1,0 +1,11 @@
+# 基于已有备份镜像更新，避免重新下载未变化的依赖。
+# composer.lock 不一致时构建会失败，此时应改用常规 Dockerfile。
+ARG BASE_IMAGE=everflame-app:before-ef-sync-20261108
+FROM ${BASE_IMAGE}
+WORKDIR /var/www/html
+RUN cp composer.lock /tmp/ef-base-composer.lock
+COPY . .
+RUN cmp composer.lock /tmp/ef-base-composer.lock \
+ && composer dump-autoload --no-dev --optimize --no-interaction \
+ && rm /tmp/ef-base-composer.lock
+COPY deploy/docker/config.php config/.config.php

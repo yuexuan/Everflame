@@ -37,6 +37,10 @@ final class UserController extends BaseController
             return ResponseHelper::error($response, 'Node not found.');
         }
 
+        if (isset(json_decode($node->custom_config, true)['managed_shadowsocks'])) {
+            return $response->withJson(['ret' => 0, 'msg' => 'Managed node requires EF Agent API.'], 409);
+        }
+
         if ($node->type === 0) {
             return ResponseHelper::error($response, 'Node is not enabled.');
         }
@@ -148,6 +152,10 @@ final class UserController extends BaseController
             return ResponseHelper::error($response, 'Node not found.');
         }
 
+        if (isset(json_decode($node->custom_config, true)['managed_shadowsocks'])) {
+            return $response->withJson(['ret' => 0, 'msg' => 'Managed node requires EF Agent API.'], 409);
+        }
+
         if ($node->type === 0) {
             return ResponseHelper::error($response, 'Node is not enabled.');
         }
@@ -199,6 +207,7 @@ final class UserController extends BaseController
 
             if ($is_traffic_log) {
                 (new HourlyUsage())->add((int) $user_id, (int) ($u + $d));
+                \App\Services\NodeTraffic::record((int) $user_id, (int) $node->id, (int) ($u + $d));
             }
 
             $sum += $u + $d;

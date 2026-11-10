@@ -112,7 +112,17 @@ final class Node extends Model
      */
     public function getNodeOnlineStatus(): int
     {
+        $binding = (json_decode($this->custom_config, true) ?? [])['managed_shadowsocks']['binding_id'] ?? null;
+        if ($binding !== null) {
+            return \App\Services\EfSync::health((int) $binding)[0];
+        }
         return $this->node_heartbeat === 0 ? 0 : ($this->node_heartbeat + 600 > time() ? 1 : -1);
+    }
+
+    public function healthReason(): string
+    {
+        $binding = (json_decode($this->custom_config, true) ?? [])['managed_shadowsocks']['binding_id'] ?? null;
+        return $binding === null ? '传统节点心跳' : \App\Services\EfSync::health((int) $binding)[1];
     }
 
     /**
