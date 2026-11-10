@@ -31,7 +31,7 @@ final class DnsController extends BaseController
     {
         try {
             $profile = $this->profile();
-            $stored = MihomoDnsSettings::load();
+            $stored = MihomoDnsSettings::load(true);
             $settings = $stored ?? MihomoDns::defaults();
             return $response->withJson(['ret' => 1, 'settings' => $settings,
                 'saved' => $stored !== null, 'groups' => ['DIRECT', ...array_column($profile['proxy-groups'], 'name')],

@@ -10,7 +10,7 @@ final class MihomoDnsSettings
 {
     public const ITEM = 'mihomo_dns';
 
-    public static function load(): ?array
+    public static function load(bool $strict = false): ?array
     {
         try {
             $row = (new Config())->where('item', self::ITEM)->first();
@@ -23,6 +23,9 @@ final class MihomoDnsSettings
             }
             return $value;
         } catch (Throwable $error) {
+            if ($strict) {
+                throw new \RuntimeException('DNS 设置读取失败，请检查数据库及保存记录；未将其视为未保存设置', 0, $error);
+            }
             error_log('Mihomo DNS settings unavailable: ' . get_class($error));
             return null;
         }
